@@ -9,9 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "config": "^1.30.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "http": "0.0.0",
     "image-downloader": "^3.3.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.7.0",
+    "mongoose": "^5.0.13",
     "puppeteer": "^1.2.0"
   }
 }

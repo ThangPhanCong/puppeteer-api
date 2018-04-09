@@ -1,0 +1,19 @@
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    stages {
+      stage('Install Dependencies') {
+          steps {
+              sh 'npm i'
+          }
+      }
+
+      stage('Deploy to production') {
+          steps {
+			  sh 'sudo NUMBER_OF_APPS=1 NODE_ENV=dev BASE_PORT=3701 pm2 start pm2/ecosystem.config.js --update-env'
+          }
+      }
+    }
+}

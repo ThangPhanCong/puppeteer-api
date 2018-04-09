@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    stages {
+      stage("Rsync Production") {
+          steps {
+            sh 'sudo rsync --delete -azvv ./* -e "ssh -i /.ssh/WI-backend-server.pem" --rsync-path="sudo rsync" ubuntu@13.251.22.187:/home/adsbold/api/authorization'
+          }
+      }
+      stage('Install Dependencies') {
+          steps {
+              sh 'sudo ssh -i /.ssh/WI-backend-server.pem ubuntu@13.251.22.187 "sudo -i && cd /home/adsbold/api/authorization && sudo npm install"'
+          }
+      }
+
+      stage('Deploy to production') {
+          steps {
+			  sh 'sudo ssh -i /.ssh/WI-backend-server.pem ubuntu@13.251.22.187 "sudo -i && cd /home/adsbold/api/authorization && sudo NUMBER_OF_APPS=2 NODE_ENV=production BASE_PORT=3001 pm2 reload ./pm2/ecosystem.config.js"'
+          }
+      }
+    }
+}
+

@@ -1,0 +1,20 @@
+{
+  "server": {
+    "port": "3801",
+    "secret": "lkvxckviwekvxkcvjiweslkfj3rskldfjlKKJcvweknsdvixcjvsd",
+    "url": "https://adsbold.com/api/a"
+  },
+  "admin": {
+    "secret": "asdfasdfsdfsdfsdfsdfsdf"
+  },
+  "mongodb": {
+    "uri": "mongodb://adsboldAdvertisement:Y662(V2D1cRJZBs@127.0.0.1:27017/adsbold-advertisement"
+  },
+  "url": {
+    "webapp": "https://adsbold.com",
+    "email_api": "https://adsbold.com/api/em",
+    "auth_server": "https://adsbold.com",
+    "page_server": "https://adsbold.com",
+    "order_server": "https://adsbold.com"
+  }
+}

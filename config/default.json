@@ -1,0 +1,20 @@
+{
+  "server": {
+    "port": "3801",
+    "secret": "123asdfasdfasdfasdf",
+    "url": "http://localhost/api/a"
+  },
+  "admin": {
+    "secret": "asdfasdfsdfsdfsdfsdfsdf"
+  },
+  "mongodb": {
+    "uri": "mongodb://127.0.0.1:27017/adsbold-advertisement"
+  },
+  "url": {
+    "webapp": "https://adsbold.com",
+    "email_api": "https://dev.adsbold.com/api/em",
+    "auth_server": "http://localhost:3001",
+    "page_server": "http://localhost:3001",
+    "order_server": "http://localhost:3001"
+  }
+}
