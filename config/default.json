@@ -1,14 +1,14 @@
 {
   "server": {
     "port": "3801",
-    "secret": "123asdfasdfasdfasdf",
+    "secret": "lkvxckviwekvxkcvjiweslkfj3rskldfjlKKJcvweknsdvixcjvsd",
     "url": "http://localhost/api/a"
   },
   "admin": {
     "secret": "asdfasdfsdfsdfsdfsdfsdf"
   },
   "mongodb": {
-    "uri": "mongodb://127.0.0.1:27017/adsbold-advertisement"
+    "uri": "mongodb://127.0.0.1:27017/adsbold-crawl"
   },
   "url": {
     "webapp": "https://adsbold.com",
