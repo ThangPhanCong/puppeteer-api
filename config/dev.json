@@ -8,7 +8,7 @@
     "secret": "asdfasdfsdfsdfsdfsdfsdf"
   },
   "mongodb": {
-    "uri": "mongodb://127.0.0.1:27017/adsbold-advertisement"
+    "uri": "mongodb://127.0.0.1:27017/adsbold-pupperteer"
   },
   "url": {
     "webapp": "https://dev.adsbold.com",

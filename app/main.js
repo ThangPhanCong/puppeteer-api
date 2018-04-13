@@ -20,7 +20,7 @@ module.exports = () => {
         app.use(bodyParser.urlencoded({extended: false}));
         app.use(cookieParser());
 
-        app.get("/", (req, res) => res.json({'This is': 'adsvertisement'}));
+        app.get("/", (req, res) => res.json({'This is': 'Crawl api'}));
 
         // load routes middleware
         app.use("/api/pu", require("./api"));
