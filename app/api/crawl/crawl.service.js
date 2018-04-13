@@ -21,9 +21,21 @@ function extractItems() {
                 _images.push(item.getAttribute("data-ploi"))
             });
         }
-        if (interactive[i].getElementsByClassName("UFICommentBody")) {
-            _comment = interactive[i].getElementsByClassName("UFICommentBody").length;
+        let comment_plus = interactive[i].getElementsByClassName("UFIPagerLink")[0];
+        let comment_show = interactive[i].getElementsByClassName("UFICommentBody");
+
+        if (comment_plus && comment_show) {
+            _comment = parseFloat(comment_plus.textContent.replace(/[^0-9]/g, ''))
+                + parseFloat(comment_show.length);
+        } else if (comment_show) {
+            _comment = parseFloat(comment_show.length);
+        } else if (comment_plus) {
+            _comment = parseFloat(comment_plus.textContent.replace(/[^0-9]/g, ''))
         }
+        else {
+            _comment = "";
+        }
+
         _like = interactive[i].getElementsByClassName("_4arz")[0].textContent;
         if (interactive[i].getElementsByClassName("UFIShareLink")[0]) {
             _share = interactive[i].getElementsByClassName("UFIShareLink")[0].textContent.replace("lượt chia sẻ", "");
@@ -100,7 +112,7 @@ exports.getCrawl = async (hashtag, project_id) => {
 
     const promises = [];
     let all_item = [];
-    let parse_links = links.slice(0, 3).length;
+    let parse_links = links.slice(0, 2).length;
     for (let i = 0; i < parse_links; i++) {
         promises.push(await getTitle(links[i], page, i))
     }
