@@ -1,6 +1,6 @@
 {
   "server": {
-    "port": "3801",
+    "port": "3901",
     "secret": "lkvxckviwekvxkcvjiweslkfj3rskldfjlKKJcvweknsdvixcjvsd",
     "url": "https://dev.adsbold.com/api/a"
   },

@@ -17,7 +17,7 @@ pipeline {
 
       stage('Deploy to production') {
           steps {
-			  sh 'sudo ssh -i /.ssh/WI-backend-server.pem ubuntu@13.251.22.187 "sudo -i && cd /home/adsbold/api/authorization && sudo NUMBER_OF_APPS=2 NODE_ENV=production BASE_PORT=3801 pm2 start ./pm2/ecosystem.config.js"'
+			  sh 'sudo ssh -i /.ssh/WI-backend-server.pem ubuntu@13.251.22.187 "sudo -i && cd /home/adsbold/api/authorization && sudo NUMBER_OF_APPS=2 NODE_ENV=production BASE_PORT=3901 pm2 start ./pm2/ecosystem.config.js"'
           }
       }
     }
