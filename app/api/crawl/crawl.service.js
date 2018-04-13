@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const StatusCrawl = mongoose.model("StatusCrawl");
 const DataCrawl = mongoose.model("DataCrawl");
 const {createAliasName} = require("../../utils/name-utils");
+const email = "thangtheotk";
+const password = "thanguet14020610";
+
 function extractItems() {
     const extractedElements = document.querySelectorAll('div._q7o');
     const message = document.getElementsByClassName("userContent");
@@ -22,13 +25,12 @@ function extractItems() {
             _comment = interactive[i].getElementsByClassName("UFICommentBody").length;
         }
         _like = interactive[i].getElementsByClassName("_4arz")[0].textContent;
-        if( interactive[i].getElementsByClassName("UFIShareLink")[0]) {
+        if (interactive[i].getElementsByClassName("UFIShareLink")[0]) {
             _share = interactive[i].getElementsByClassName("UFIShareLink")[0].textContent.replace("lượt chia sẻ", "");
         } else {
             _share = ""
         }
-        // let parse_comment = _comment.includes("K") ? parseFloat(_comment.replace(",", ".")) * 1000 :
-        //     parseFloat(_comment.replace(",", "."));
+
         let parse_share = _share.includes("K") ? parseFloat(_share.replace(",", ".")) * 1000 :
             parseFloat(_share.replace(",", "."))
         let parse_like = _like.includes("K") ? parseFloat(_like.replace(",", ".")) * 1000 :
@@ -75,8 +77,8 @@ exports.getCrawl = async (hashtag, project_id) => {
 
     //login face
     await page.goto('https://www.facebook.com');
-    await page.type('#email', 'thangtheotk');
-    await page.type('#pass', 'thanguet14020610');
+    await page.type('#email', email);
+    await page.type('#pass', password);
     await page.click("label#loginbutton");
     // await page.waitForNavigation();
 
@@ -115,7 +117,7 @@ exports.getCrawl = async (hashtag, project_id) => {
     await browser.close();
     console.log(all_item);
     console.log(all_item.length);
-   await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
+    await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
         returnNewDocument: true,
         new: true
     })
