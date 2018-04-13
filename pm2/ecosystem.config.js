@@ -10,7 +10,7 @@ function getApps() {
 
     for (let i = 0; i < NUMBER_OF_APPS; i++) {
         const app = {
-            name: "ads-api" + "-" + NODE_ENV + "-" + i,
+            name: "puppeteer-api" + "-" + NODE_ENV + "-" + i,
             script: "index.js",
             watch: false,
             env: {
