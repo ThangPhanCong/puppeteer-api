@@ -128,7 +128,10 @@ exports.getCrawl = async (hashtag, project_id) => {
         }
 
         async function getTitle(link, page, key) {
-            await page.goto(link);
+            await page.goto(link, {
+                // Set timeout cho page
+                timeout: 3000000
+            });
             await page.waitFor(3000);
             const items = await scrapeInfiniteScrollItems(page, extractItems, 100);
             await all_item.push(...items);
