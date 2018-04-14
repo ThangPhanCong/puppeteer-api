@@ -19,15 +19,15 @@ api.post(
             const {hashtag} = req.body;
             const {project_id} = req.payload;
             await crawl_service.getCrawl(hashtag, project_id);
-            const status_crawl = await StatusCrawl.findOne({project_id});
+            // const status_crawl = await StatusCrawl.findOne({project_id});
 
-            if (status_crawl) {
-                status_crawl.is_crawling = true;
-                await status_crawl.save();
-            } else {
-                let statusModel = new StatusCrawl({is_crawling: true, project_id});
-                await statusModel.save();
-            }
+            // if (status_crawl) {
+            //     status_crawl.is_crawling = true;
+            //     await status_crawl.save();
+            // } else {
+            //     let statusModel = new StatusCrawl({is_crawling: true, project_id});
+            //     await statusModel.save();
+            // }
             return res.json(success({message: "Đã lấy xong dữ liệu", project_id, hashtag}));
         }
         catch (err) {
