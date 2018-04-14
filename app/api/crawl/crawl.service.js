@@ -88,7 +88,7 @@ async function loginFacebook(page, email, password) {
 
 exports.getCrawl = async (hashtag, project_id) => {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-notifications"],
     });
     const page = await browser.newPage();
