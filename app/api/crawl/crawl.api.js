@@ -18,8 +18,9 @@ api.post(
         try {
             const {hashtag} = req.body;
             const {project_id} = req.payload;
-            crawl_service.getCrawl(hashtag, project_id);
+            await crawl_service.getCrawl(hashtag, project_id);
             const status_crawl = await StatusCrawl.findOne({project_id});
+
             if (status_crawl) {
                 status_crawl.is_crawling = true;
                 await status_crawl.save();
@@ -27,7 +28,7 @@ api.post(
                 let statusModel = new StatusCrawl({is_crawling: true, project_id});
                 await statusModel.save();
             }
-            return res.json(success({message: "Đang tiến hành lấy dữ liêu", project_id, hashtag}));
+            return res.json(success({message: "Đã lấy xong dữ liệu", project_id, hashtag}));
         }
         catch (err) {
             error(`${req.method} ${req.originalUrl}`, err.message);

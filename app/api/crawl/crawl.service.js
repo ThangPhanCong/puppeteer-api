@@ -80,67 +80,80 @@ async function scrapeInfiniteScrollItems(page,
     return items;
 }
 
+async function loginFacebook(page, email, password) {
+    await page.goto('https://www.facebook.com');
+    await page.type('#email', email);
+    await page.type('#pass', password);
+}
+
 exports.getCrawl = async (hashtag, project_id) => {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-notifications"],
     });
     const page = await browser.newPage();
 
     //login face
-    await page.goto('https://www.facebook.com');
-    await page.type('#email', email);
-    await page.type('#pass', password);
-    await page.click("label#loginbutton");
-    // await page.waitForNavigation();
+    try {
+        const promises = [];
+        let all_item = [];
 
-    await page.waitFor('input[data-testid=search_input]');
+        await loginFacebook(page, email, password);
+        await page.click("label#loginbutton");
+        // await page.waitForNavigation();
 
-    await page.type('input[data-testid=search_input]', `${hashtag}`);
+        await page.waitFor('input[data-testid=search_input]');
 
-    await page.keyboard.press("Enter");
-    await page.waitFor(3000);
+        await page.type('input[data-testid=search_input]', `${hashtag}`);
 
-    await page.mouse.click(460, 57);
-
-    await page.waitFor(3000);
-    let page_length = await page.evaluate(`document.querySelectorAll("._32mo").length`)
-    let links = [];
-    for (let i = 0; i < page_length; i++) {
-        await links.push(await page.evaluate(`document.querySelectorAll("._32mo")[${i}].getAttribute("href")`))
-    }
-
-    const promises = [];
-    let all_item = [];
-    let parse_links = links.slice(0, 2).length;
-    for (let i = 0; i < parse_links; i++) {
-        promises.push(await getTitle(links[i], page, i))
-    }
-
-    async function getTitle(link, page, key) {
-        await page.goto(link);
+        await page.keyboard.press("Enter");
         await page.waitFor(3000);
-        const items = await scrapeInfiniteScrollItems(page, extractItems, 100);
-        await all_item.push(...items);
 
-        return page;
+        await page.mouse.click(460, 57);
+
+        await page.waitFor(3000);
+
+        let page_length = await page.evaluate(`document.querySelectorAll("._32mo").length`)
+        let links = [];
+
+        for (let i = 0; i < page_length; i++) {
+            await links.push(await page.evaluate(`document.querySelectorAll("._32mo")[${i}].getAttribute("href")`))
+        }
+
+
+        let parse_links = links.slice(0, 2).length;
+
+        for (let i = 0; i < parse_links; i++) {
+            promises.push(await getTitle(links[i], page, i))
+        }
+
+        async function getTitle(link, page, key) {
+            await page.goto(link);
+            await page.waitFor(3000);
+            const items = await scrapeInfiniteScrollItems(page, extractItems, 100);
+            await all_item.push(...items);
+
+            return page;
+        }
+
+        // await browser.close();
+        console.log(all_item);
+        console.log(all_item.length);
+        await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
+            returnNewDocument: true,
+            new: true
+        });
+
+        all_item.forEach((item) => {
+            item.hashtag = hashtag;
+            item.project_id = project_id;
+            item.hashtag_alias = createAliasName(hashtag || "");
+            let dataModel = new DataCrawl(item);
+            dataModel.save();
+        });
+    } catch (err) {
+        console.log(err)
     }
 
-    await browser.close();
-    console.log(all_item);
-    console.log(all_item.length);
-    await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
-        returnNewDocument: true,
-        new: true
-    })
-
-    all_item.map((item) => {
-        item.hashtag = hashtag;
-        item.project_id = project_id;
-        item.hashtag_alias = createAliasName(hashtag || "");
-        let dataModel = new DataCrawl(item);
-        dataModel.save();
-    });
-    return all_item;
 };
 
