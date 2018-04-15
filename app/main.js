@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const config = require('config');
 const db = require('./database');
+const {cronJob} = require('./cron-job.js')
 
 // load dependencies
 
@@ -33,6 +34,7 @@ module.exports = () => {
             if (err) throw err;
             console.log("Adsbold server is listening on port " + PORT);
         });
+        cronJob();
     })
 
 };

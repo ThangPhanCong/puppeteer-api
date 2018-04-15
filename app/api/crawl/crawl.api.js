@@ -1,14 +1,17 @@
 'use strict';
+const {createAliasName} = require("../../utils/name-utils");
+
 const db = require('../../database');
 const api = require("express").Router();
 const config = require('config');
 const crawl_service = require('./crawl.service');
 const mongoose = require('mongoose');
 const StatusCrawl = mongoose.model('StatusCrawl');
+const DataCrawl = mongoose.model('DataCrawl');
 const {info, error} = require('../../services/logger');
 const {success, fail} = require("../../utils/response-utils");
 const authMiddleware = require('../auth.mid');
-const dataCrawl = db.getModel('DataCrawl');
+
 
 // 1. tăng khoảng timeout của nginx lên (1000ms -> 5000ms) // ko khôn ngoan lắm
 
@@ -29,21 +32,31 @@ api.post(
 
             // check hashtag đấy đã có trong csdl hay chưa
             // -> nếu có rồi thì trả về
+            const history_hashtag = await DataCrawl.find({"hashtag_alias": `${createAliasName(hashtag)}`});
+
+            if (history_hashtag.length) {
+                return res.json(success({
+                    message: "Dữ liệu đã có sẵn",
+                    project_id,
+                    is_crawled: true,
+                    data: [...history_hashtag]
+                }));
+            } else {
+                // const data_crawl = await crawl_service.getCrawl(hashtag, project_id);
+                let item = {};
+                item.hashtag = hashtag;
+                item.project_id = project_id;
+                item.is_crawled = false;
+                item.hashtag_alias = createAliasName(hashtag || "");
+
+                let dataModel = new DataCrawl(item);
+                await dataModel.save();
+                return res.json(success({message: "Đang lấy dữ liệu", project_id, hashtag}));
+            }
+
 
             // -> nếu chưa có thì lấy -> trả về trạng thái đang crawling
             // -> nếu chưa có nhưng đang crawling -> trả về trạng thái đang crawling
-
-            await crawl_service.getCrawl(hashtag, project_id);
-            // const status_crawl = await StatusCrawl.findOne({project_id});
-
-            // if (status_crawl) {
-            //     status_crawl.is_crawling = true;
-            //     await status_crawl.save();
-            // } else {
-            //     let statusModel = new StatusCrawl({is_crawling: true, project_id});
-            //     await statusModel.save();
-            // }
-            return res.json(success({message: "Đã lấy xong dữ liệu", project_id, hashtag}));
         }
         catch (err) {
             error(`${req.method} ${req.originalUrl}`, err.message);
@@ -60,7 +73,7 @@ api.get(
         try {
             const {project_id} = req.payload;
             const {hashtag_alias} = req.params;
-            const dataModel = await dataCrawl.find({project_id, hashtag_alias});
+            const dataModel = await DataCrawl.find({project_id, hashtag_alias});
             const body = [...dataModel];
 
             return res.json(success(body));

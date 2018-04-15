@@ -30,6 +30,10 @@ const DataCrawlSchema = new Schema({
         type: String,
         required: true
     },
+    is_crawled: {
+        type: Boolean,
+        required: true
+    },
 });
 
 const DataCrawl = mongoose.model("DataCrawl", DataCrawlSchema);

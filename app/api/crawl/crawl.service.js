@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const mongoose = require("mongoose");
-const StatusCrawl = mongoose.model("StatusCrawl");
+// const StatusCrawl = mongoose.model("StatusCrawl");
 const DataCrawl = mongoose.model("DataCrawl");
 const {createAliasName} = require("../../utils/name-utils");
 const email = "thangtheotk";
@@ -144,10 +144,10 @@ exports.getCrawl = async (hashtag, project_id) => {
         await browser.close();
         console.log(all_item);
         console.log(all_item.length);
-        await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
-            returnNewDocument: true,
-            new: true
-        });
+        // await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
+        //     returnNewDocument: true,
+        //     new: true
+        // });
 
         all_item.forEach((item) => {
             item.hashtag = hashtag;
