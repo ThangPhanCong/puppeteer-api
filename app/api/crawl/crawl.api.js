@@ -73,7 +73,7 @@ api.get(
         try {
             const {project_id} = req.payload;
             const {hashtag_alias} = req.params;
-            const dataModel = await DataCrawl.find({project_id, hashtag_alias, is_crawled: true});
+            const dataModel = await DataCrawl.find({project_id, hashtag_alias});
             const body = [...dataModel];
 
             return res.json(success(body));
