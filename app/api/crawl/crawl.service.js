@@ -5,6 +5,7 @@ const DataCrawl = mongoose.model("DataCrawl");
 const {createAliasName} = require("../../utils/name-utils");
 const email = "thangtheotk";
 const password = "thanguet14020610";
+process.setMaxListeners(Infinity);
 
 function extractItems() {
     const extractedElements = document.querySelectorAll('div._q7o');
