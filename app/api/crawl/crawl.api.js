@@ -45,7 +45,7 @@ api.get(
             const {project_id} = req.payload;
             const {hashtag_alias} = req.params;
             const dataModel = await dataCrawl.find({project_id, hashtag_alias});
-            const body = {...dataModel};
+            const body = [...dataModel];
 
             return res.json(success(body));
         }
