@@ -138,7 +138,7 @@ exports.getCrawl = async (hashtag, project_id) => {
             return page;
         }
 
-        // await browser.close();
+        await browser.close();
         console.log(all_item);
         console.log(all_item.length);
         await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
