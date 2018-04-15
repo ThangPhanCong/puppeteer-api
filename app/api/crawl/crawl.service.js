@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const mongoose = require("mongoose");
 // const StatusCrawl = mongoose.model("StatusCrawl");
-const DataCrawl = mongoose.model("DataCrawl");
+const HashTagCrawl = mongoose.model("HashTagCrawl");
 const {createAliasName} = require("../../utils/name-utils");
 const email = "thangtheotk";
 const password = "thanguet14020610";
@@ -137,6 +137,7 @@ exports.getCrawl = async (hashtag, project_id) => {
 
             return page;
         }
+
         await page.on('error', (err) => {
             console.log(err)
         });
@@ -144,18 +145,19 @@ exports.getCrawl = async (hashtag, project_id) => {
         await browser.close();
         console.log(all_item);
         console.log(all_item.length);
-        // await StatusCrawl.findOneAndUpdate({project_id}, {$set: {is_crawling: false}}, {
-        //     returnNewDocument: true,
-        //     new: true
-        // });
-
-        all_item.forEach((item) => {
-            item.hashtag = hashtag;
-            item.project_id = project_id;
-            item.hashtag_alias = createAliasName(hashtag || "");
-            let dataModel = new DataCrawl(item);
-            dataModel.save();
-        });
+        await HashTagCrawl.findOneAndUpdate({project_id},
+            {
+                $set: {
+                    name: hashtag,
+                    is_crawled: true,
+                    data: [...all_item],
+                    hashtag_alias: createAliasName(hashtag || ""),
+                }
+            },
+            {
+                returnNewDocument: true,
+                new: true
+            });
     } catch (err) {
         console.log(err)
     }

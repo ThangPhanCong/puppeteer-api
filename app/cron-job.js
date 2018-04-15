@@ -1,32 +1,40 @@
 const CronJob = require('cron').CronJob;
-require('./models/data-crawl');
+require('./models/hashtag');
 require('./models/status-crawl');
 const crawl_service = require('./api/crawl/crawl.service');
 const mongoose = require('mongoose');
-const DataCrawl = mongoose.model('DataCrawl');
-
+const HashTagCrawl = mongoose.model('HashTagCrawl');
 
 async function crawl(ht) {
-    await crawl_service.getCrawl(ht);
-    await DataCrawl.findOneAndUpdate({project_id: ht.project_id}, {$set: {is_crawled: true}}, {
-        returnNewDocument: true,
-        new: true
-    });
+    try {
+        await crawl_service.getCrawl(ht.name, ht.project_id);
+    } catch (err) {
+        console.log(err)
+    }
 }
+
+async function findHashTag() {
+    try {
+        const hash_tag = await HashTagCrawl.findOne({"is_crawled": false});
+        console.log("show hashtag", hash_tag);
+
+        if (hash_tag) {
+            await crawl(hash_tag);
+        } else {
+            console.log("Hashtag đã được crawl!")
+        }
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 exports.cronJob = async function cronJob() {
     const job = new CronJob({
-        cronTime: '0 */4 * * * *',
+        cronTime: '*/2 * * * *',
         onTick: function () {
-            console.log('4 minutes');
-            const hash_tag = DataCrawl.find({"is_crawled": false});
-            if(hash_tag.length) {
-                hash_tag.forEach((ht) => {
-                    console.log("hashtag ne:", ht.hashtag)
-                    crawl(ht.hashtag)
-                })
-            }
-
+            console.log('3 minutes');
+            findHashTag();
         },
         start: false,
         timeZone: 'Asia/Ho_Chi_Minh'
