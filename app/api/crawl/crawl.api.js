@@ -52,7 +52,7 @@ api.post(
                 let dataModel = new HashTagCrawl(item);
                 await dataModel.save();
                 console.log("item", item)
-                return res.json(success({message: "Đang lấy dữ liệu", project_id, hashtag}));
+                return res.json(success({message: "Đang lấy dữ liệu vui lòng chờ ít phút!", project_id, hashtag}));
             }
 
 
