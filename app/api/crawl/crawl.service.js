@@ -137,7 +137,9 @@ exports.getCrawl = async (hashtag, project_id) => {
 
             return page;
         }
-        await page.on('error')
+        await page.on('error', (err) => {
+            console.log(err)
+        });
 
         await browser.close();
         console.log(all_item);
