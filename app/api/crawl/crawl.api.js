@@ -85,4 +85,21 @@ api.get(
     }
 );
 
+api.get(
+    '/all-hashtag',
+    authMiddleware,
+    async (req, res) => {
+
+        try {
+            const dataModel = await DataCrawl.distinct("hashtag_alias");
+            const body = [...dataModel];
+            return res.json(success(body));
+        }
+        catch (err) {
+            error(`${req.method} ${req.originalUrl}`, err.message);
+            return res.json(fail(err.message));
+        }
+    }
+);
+
 module.exports = api;

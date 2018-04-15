@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const DataCrawl = mongoose.model('DataCrawl');
 
 
-
 async function crawl(ht) {
     await crawl_service.getCrawl(ht);
     await DataCrawl.findOneAndUpdate({project_id: ht.project_id}, {$set: {is_crawled: true}}, {
