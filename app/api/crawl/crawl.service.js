@@ -121,7 +121,6 @@ exports.getCrawl = async (hashtag, project_id) => {
             await links.push(await page.evaluate(`document.querySelectorAll("._32mo")[${i}].getAttribute("href")`))
         }
 
-
         let parse_links = links.slice(0, 2).length;
 
         for (let i = 0; i < parse_links; i++) {
@@ -138,6 +137,7 @@ exports.getCrawl = async (hashtag, project_id) => {
 
             return page;
         }
+        await page.on('error')
 
         await browser.close();
         console.log(all_item);

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee8ef138-5cfc-4e38-9f20-69d689773551" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/api/crawl/crawl.api.js" afterPath="$PROJECT_DIR$/app/api/crawl/crawl.api.js" />
+      <change beforePath="$PROJECT_DIR$/app/api/crawl/crawl.service.js" afterPath="$PROJECT_DIR$/app/api/crawl/crawl.service.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="crawl.service.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="crawl.service.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api/crawl/crawl.service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="221">
+              <caret line="139" column="30" lean-forward="true" selection-start-line="139" selection-start-column="30" selection-end-line="139" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -30,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/app/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="59">
-              <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+              <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -46,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crawl.api.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="crawl.api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/api/crawl/crawl.api.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
@@ -95,8 +95,8 @@
         <option value="$PROJECT_DIR$/config/dev.json" />
         <option value="$PROJECT_DIR$/config/production.json" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/app/api/crawl/crawl.service.js" />
         <option value="$PROJECT_DIR$/app/api/crawl/crawl.api.js" />
+        <option value="$PROJECT_DIR$/app/api/crawl/crawl.service.js" />
       </list>
     </option>
   </component>
@@ -264,12 +264,12 @@
       <workItem from="1523713634521" duration="1862000" />
       <workItem from="1523719049714" duration="4505000" />
       <workItem from="1523731708459" duration="771000" />
-      <workItem from="1523755639767" duration="1932000" />
+      <workItem from="1523755639767" duration="3184000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221881000" />
+    <option name="totallyTimeSpent" value="223133000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="-4" width="1307" height="772" extended-state="6" />
@@ -577,18 +577,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/crawl/crawl.service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
-          <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+          <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -597,6 +589,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="47" column="39" lean-forward="false" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/crawl/crawl.service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="139" column="30" lean-forward="true" selection-start-line="139" selection-start-column="30" selection-end-line="139" selection-end-column="30" />
           <folding />
         </state>
       </provider>
