@@ -31,7 +31,7 @@ async function findHashTag() {
 
 exports.cronJob = async function cronJob() {
     const job = new CronJob({
-        cronTime: '*/2 * * * *',
+        cronTime: '*/3 * * * *',
         onTick: function () {
             console.log('3 minutes');
             findHashTag();
