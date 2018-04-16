@@ -110,7 +110,7 @@ api.get(
                 const body = [...dataModel];
                 return res.json(success(body));
             } else {
-                return res.json(fail({message: "Project này không có hashtag"}));
+                return res.json(success({message: "Project này không có hashtag"}));
             }
 
         }
