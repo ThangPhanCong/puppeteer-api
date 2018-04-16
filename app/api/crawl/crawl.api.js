@@ -92,16 +92,16 @@ api.get(
     async (req, res) => {
 
         try {
-            // const dataModel = await HashTagCrawl.distinct("hashtag_alias");
-            const dataModel = await HashTagCrawl.aggregate([
-                {
-                    $group: {
-                        _id: null,
-                        project_id: {$addToSet: '$project_id'},
-                        hashtag_alias: {$addToSet: '$hashtag_alias'}
-                    }
-                }
-            ]);
+            const dataModel = await HashTagCrawl.distinct("hashtag_alias");
+            // const dataModel = await HashTagCrawl.aggregate([
+            //     {
+            //         $group: {
+            //             _id: null,
+            //             project_id: {$addToSet: '$project_id'},
+            //             hashtag_alias: {$addToSet: '$hashtag_alias'}
+            //         }
+            //     }
+            // ]);
             const body = [...dataModel];
             return res.json(success(body));
         }
