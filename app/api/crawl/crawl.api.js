@@ -93,11 +93,11 @@ api.get(
 
         try {
             const {project_id} = req.payload;
-            const dataModel = await HashTagCrawl.distinct("hashtag_alias");
-            const _project_id = await HashTagCrawl.distinct("project_id");
+            const dataModel = await HashTagCrawl.distinct("hashtag_alias", {project_id});
+            // const _project_id = await HashTagCrawl.distinct("project_id");
 
 
-            if(project_id === _project_id[0]) {
+            if(dataModel) {
                 const body = [...dataModel];
                 return res.json(success(body));
             } else {
