@@ -145,10 +145,10 @@ exports.getCrawl = async (hashtag, project_id) => {
         await browser.close();
         console.log(all_item);
         console.log(all_item.length);
-        await HashTagCrawl.findOneAndUpdate({project_id},
+        await HashTagCrawl.findOneAndUpdate({name: hashtag},
             {
                 $set: {
-                    name: hashtag,
+                    project_id,
                     is_crawled: true,
                     data: !all_item.length ? [] : [...all_item],
                     hashtag_alias: createAliasName(hashtag || ""),
