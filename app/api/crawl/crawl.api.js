@@ -31,8 +31,8 @@ api.post(
             // check hashtag đấy đã có trong csdl hay chưa
             // -> nếu có rồi thì trả về
             const history_hashtag = await HashTagCrawl.find({"hashtag_alias": `${createAliasName(hashtag)}`});
-            console.log(history_hashtag.length)
-            if (history_hashtag.length) {
+
+            if (history_hashtag.length && project_id === [...history_hashtag][0].project_id) {
                 return res.json(success({
                     message: "Dữ liệu đã có sẵn",
                     project_id,
@@ -97,15 +97,6 @@ api.get(
             const _project_id = await HashTagCrawl.distinct("project_id");
 
 
-            // const dataModel = await HashTagCrawl.aggregate([
-            //     {
-            //         $group: {
-            //             _id: null,
-            //             project_id: {$addToSet: '$project_id'},
-            //             hashtag_alias: {$addToSet: '$hashtag_alias'}
-            //         }
-            //     }
-            // ]);
             if(project_id === _project_id[0]) {
                 const body = [...dataModel];
                 return res.json(success(body));
