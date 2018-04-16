@@ -150,14 +150,11 @@ exports.getCrawl = async (hashtag, project_id) => {
                 $set: {
                     name: hashtag,
                     is_crawled: true,
-                    data: [...all_item],
+                    data: !all_item.length ? [] : [...all_item],
                     hashtag_alias: createAliasName(hashtag || ""),
                 }
-            },
-            {
-                returnNewDocument: true,
-                new: true,
-            });
+            }
+        );
     } catch (err) {
         console.log(err)
     }
