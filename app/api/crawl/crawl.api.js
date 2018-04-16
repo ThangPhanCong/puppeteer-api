@@ -92,7 +92,11 @@ api.get(
     async (req, res) => {
 
         try {
+            const {project_id} = req.payload;
             const dataModel = await HashTagCrawl.distinct("hashtag_alias");
+            const _project_id = await HashTagCrawl.distinct("project_id");
+
+
             // const dataModel = await HashTagCrawl.aggregate([
             //     {
             //         $group: {
@@ -102,8 +106,13 @@ api.get(
             //         }
             //     }
             // ]);
-            const body = [...dataModel];
-            return res.json(success(body));
+            if(project_id === _project_id[0]) {
+                const body = [...dataModel];
+                return res.json(success(body));
+            } else {
+                return res.json(fail({message: "Project này không có hashtag"}));
+            }
+
         }
         catch (err) {
             error(`${req.method} ${req.originalUrl}`, err.message);
