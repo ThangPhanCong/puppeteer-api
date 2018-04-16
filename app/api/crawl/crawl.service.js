@@ -154,7 +154,10 @@ exports.getCrawl = async (hashtag, project_id) => {
                     hashtag_alias: createAliasName(hashtag || ""),
                 }
             },
-            );
+            {
+                returnNewDocument: true,
+                new: true,
+            });
     } catch (err) {
         console.log(err)
     }

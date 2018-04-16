@@ -35,6 +35,7 @@ api.post(
                 "project_id": project_id
             });
 
+            console.log("ok", history_hashtag)
             if (history_hashtag.length) {
                 return res.json(success({
                     message: "Dữ liệu đã có sẵn",
