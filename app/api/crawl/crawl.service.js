@@ -87,7 +87,7 @@ async function loginFacebook(page, email, password) {
     await page.type('#pass', password);
 }
 
-exports.getCrawl = async (hashtag, project_id) => {
+exports.getCrawl = async (hashtag, project_id, _id) => {
     const browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-notifications"],
@@ -145,16 +145,22 @@ exports.getCrawl = async (hashtag, project_id) => {
         await browser.close();
         console.log(all_item);
         console.log(all_item.length);
-        await HashTagCrawl.findOneAndUpdate({name: hashtag},
+
+        await HashTagCrawl.findOneAndUpdate({
+                _id,
+                project_id
+            },
             {
                 $set: {
-                    project_id,
                     is_crawled: true,
                     data: !all_item.length ? [] : [...all_item],
                     hashtag_alias: createAliasName(hashtag || ""),
                 }
-            }
-        );
+            },
+            {
+                returnNewDocument: true,
+                new: true
+            })
     } catch (err) {
         console.log(err)
     }

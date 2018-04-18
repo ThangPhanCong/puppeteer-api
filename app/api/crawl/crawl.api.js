@@ -43,10 +43,10 @@ api.post(
                     name: hashtag,
                     hashtag_alias: createAliasName(hashtag),
                     is_crawled: true,
-                    data: [...history_hashtag]
                 }));
             } else {
                 let item = {};
+                item["_id"] = new mongoose.Types.ObjectId();
                 item["name"] = hashtag;
                 item["project_id"] = project_id;
                 item["is_crawled"] = false;

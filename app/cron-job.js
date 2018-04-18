@@ -7,7 +7,7 @@ const HashTagCrawl = mongoose.model('HashTagCrawl');
 
 async function crawl(ht) {
     try {
-        await crawl_service.getCrawl(ht.name, ht.project_id);
+        await crawl_service.getCrawl(ht.name, ht.project_id, ht._id);
     } catch (err) {
         console.log(err)
     }
